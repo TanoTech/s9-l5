@@ -38,7 +38,6 @@ class SingleMovie extends React.Component {
             .catch(error => {
                 console.error("Errore nella richiesta API:", error);
             });
-
     }
 
     render() {
@@ -49,7 +48,7 @@ class SingleMovie extends React.Component {
                 {movieData ? (
                     movieData.map((movie, index) => (
                         <Col xs={6} md={4} lg={2} key={index}>
-                            <img className='img-fluid' src={movie.Poster} alt={movie.Title} onClick={() => this.openModal(movie)}/>
+                            <img className='img-fluid' src={movie.Poster} alt={movie.Title} onClick={() => this.openModal(movie)} />
                         </Col>
                     ))
                 ) : (
@@ -61,7 +60,8 @@ class SingleMovie extends React.Component {
                         <Modal.Title>{selectedMovie?.Title}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <PostComment data={SingleMovie} />
+                        <GetComment imdbId={selectedMovie?.imdbID} />
+                        <PostComment imdbId={selectedMovie?.imdbID} />
                     </Modal.Body>
                 </Modal>
 

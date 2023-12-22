@@ -4,11 +4,26 @@ import { faThLarge, faTh } from '@fortawesome/free-solid-svg-icons';
 import { Container, Row, Col, Dropdown, DropdownButton } from 'react-bootstrap';
 import SingleMovie from "./SingleMovie";
 import './MoviesDisplay.css'
+import NavbarNet from "./Navbar";
+import MovieSearch from "./MovieSearch";
 
 class MoviesDisplay extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            searchResults: [],
+        };
+    }
+
+    updateSearchResults = (results) => {
+        this.setState({ searchResults: results });
+    };
+
     render() {
+        const { searchResults } = this.state;
         return (
             <Container fluid>
+                <MovieSearch onResults={this.updateSearchResults} />
                 <div className="d-flex justify-content-between">
                     <div className="d-flex">
                         <h2 className="mb-4 text-white">TV Shows</h2>
@@ -31,11 +46,11 @@ class MoviesDisplay extends React.Component {
                 </Row>
                 <h4 className="text-white">🤣Comedy🤣 </h4>
                 <Row className='movieFlex'>
-                    <SingleMovie  movieTitles={['Ricomincio da tre' ,'Totò, Peppino e la... malafemmina','Ricky Gervais: Humanity', 'Dave Chappelle: The Closer', 'The Fresh Prince of Bel-Air', 'American: The Bill Hicks Story']} />
+                    <SingleMovie movieTitles={['Ricomincio da tre', 'Totò, Peppino e la... malafemmina', 'Ricky Gervais: Humanity', 'Dave Chappelle: The Closer', 'The Fresh Prince of Bel-Air', 'American: The Bill Hicks Story']} />
                 </Row>
                 <h4 className="text-white">🛸 Lost in Space 🛸</h4>
                 <Row className='movieFlex'>
-                    <SingleMovie  movieTitles={['Alien', 'Aliens', 'Alien 3', 'Alien: Resurrection', 'Prometheus', 'Alien: Covenant']} />
+                    <SingleMovie movieTitles={['Alien', 'Aliens', 'Alien 3', 'Alien: Resurrection', 'Prometheus', 'Alien: Covenant']} />
                 </Row>
             </Container>
         );

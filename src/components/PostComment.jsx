@@ -1,70 +1,79 @@
-import React from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 
 class PostComment extends React.Component {
-    state = {
-        newComment: {
-            comment: "",
-            rate: 0,
-            elementId: this.props.data.imdbID, 
-        },
+  constructor(props) {
+    super(props);
+    this.state = {
+      comment: '',
+      rate: 1,
+    };
+  }
+
+  handleCommentChange = (e) => {
+    this.setState({ comment: e.target.value });
+  }
+
+  handleRateChange = (e) => {
+    this.setState({ rate: e.target.value });
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+
+    const commentData = {
+      comment: this.state.comment,
+      rate: this.state.rate,
+      elementId: this.props.imdbID,
     };
 
-    handleInputChange = (event) => {
-        const { name, value } = event.target;
-        this.setState(prevState => ({
-            newComment: {
-                ...prevState.newComment,
-                [name]: value
-            }
-        }));
-    };
+    const apiUrl = 'https://striveschool-api.herokuapp.com/api/comments/';
+    const authToken = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTg1OGI0NWI5ODkwODAwMTg0ODg3NDkiLCJpYXQiOjE3MDMyNTA3NTcsImV4cCI6MTcwNDQ2MDM1N30.mjmAWkGSn_s6mRwnEUVxgk95uQYjNGsi3kdhffD0n1g';
 
-    handleSubmit = async (event) => {
-        event.preventDefault();
-        try {
-            const response = await axios.post("https://striveschool-api.herokuapp.com/api/comments/", this.state.newComment, {
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTg1OGI0NWI5ODkwODAwMTg0ODg3NDkiLCJpYXQiOjE3MDMyNTA3NTcsImV4cCI6MTcwNDQ2MDM1N30.mjmAWkGSn_s6mRwnEUVxgk95uQYjNGsi3kdhffD0n1g",
-                }
-            });
-            console.log(response.data);
-           
-        } catch (error) {
-            console.error("Errore durante l'invio del commento:", error);
-            
-        }
-    };
+    axios.post(apiUrl, commentData, {
+      headers: {
+        'Authorization': authToken,
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        console.log('Risposta dalla richiesta POST:', response.data);
+        // Aggiungi eventuali azioni aggiuntive dopo l'invio del commento, come l'aggiornamento dell'interfaccia utente.
+      })
+      .catch((error) => {
+        console.error('Errore durante la richiesta POST:', error);
+      });
+  }
 
-    render() {
-        return (
-            <form onSubmit={this.handleSubmit}>
-                <div>
-                    <label htmlFor="comment">Commento:</label>
-                    <textarea
-                        id="comment"
-                        name="comment"
-                        value={this.state.newComment.comment}
-                        onChange={this.handleInputChange}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="rate">Valutazione:</label>
-                    <input
-                        type="number"
-                        id="rate"
-                        name="rate"
-                        value={this.state.newComment.rate}
-                        onChange={this.handleInputChange}
-                        min="1"
-                        max="5"
-                    />
-                </div>
-                <button type="submit">Invia Commento</button>
-            </form>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <h2>Invia un Commento</h2>
+        <form onSubmit={this.handleSubmit}>
+          <div>
+            <label htmlFor="comment">Commento:</label>
+            <textarea
+              id="comment"
+              name="comment"
+              value={this.state.comment}
+              onChange={this.handleCommentChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="rate">Rate:</label>
+            <input
+              type="number"
+              id="rate"
+              name="rate"
+              value={this.state.rate}
+              onChange={this.handleRateChange}
+            />
+          </div>
+          <button type="submit">Invia Commento</button>
+        </form>
+      </div>
+    );
+  }
 }
 
 export default PostComment;

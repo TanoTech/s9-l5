@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import MoviesDisplay from './components/MoviesDisplays';
+import SearchResults from './components/MovieSearch';
 
 function App() {
   return (
@@ -10,7 +11,6 @@ function App() {
       <Navbar />
       <MoviesDisplay />
       <Footer />
-      
     </div>
   );
 }

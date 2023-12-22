@@ -3,8 +3,9 @@ import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faBell, faUser } from '@fortawesome/free-solid-svg-icons';
 import './Navbar.css'
+import MovieSearch from "./MovieSearch";
 
-class CustomNavbar extends React.Component {
+class NavbarNet extends React.Component {
     render() {
         return (
             <Navbar expand="lg">
@@ -26,7 +27,6 @@ class CustomNavbar extends React.Component {
                         <Nav.Link href="#" className="text-white">Recently Added</Nav.Link>
                         <Nav.Link href="#" className="text-white">My List</Nav.Link>
                     </Nav>
-                        <FontAwesomeIcon icon={faSearch} className="icons text-white justify-content-end" />
                         <Nav.Link className="text-white">KIDS</Nav.Link>
                         <FontAwesomeIcon icon={faBell} className="icons text-white" />
                         <FontAwesomeIcon icon={faUser} className="icons text-white" />
@@ -36,4 +36,4 @@ class CustomNavbar extends React.Component {
     }
 }
 
-export default CustomNavbar;
+export default NavbarNet;

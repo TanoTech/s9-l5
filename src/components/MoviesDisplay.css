@@ -1,0 +1,19 @@
+.movieFlex div:nth-child(1) {
+    display: flex;
+    justify-content: space-around;
+}
+
+.movieFlex img {
+    height: 18rem;
+    width: 100%;
+    &:hover {
+        transform: scale(1.2);
+        border: 2px solid white;
+    }
+}
+
+h4 {
+    display: flex;
+    justify-content: flex-start;
+    margin: 2rem 0
+}

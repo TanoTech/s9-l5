@@ -5,7 +5,7 @@ class PostComment extends React.Component {
     super(props);
     this.state = {
       comment: '',
-      rate: 1,
+      ratings: [false, false, false, false, false],
     };
   }
 
@@ -72,6 +72,7 @@ class PostComment extends React.Component {
               name="comment"
               value={this.state.comment}
               onChange={this.handleCommentChange}
+              required
             />
           </div>
           <div>
@@ -82,6 +83,7 @@ class PostComment extends React.Component {
               name="rate"
               value={this.state.rate}
               onChange={this.handleRateChange}
+              required
             />
           </div>
           <button type="submit">Invia Commento</button>

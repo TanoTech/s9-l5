@@ -1,7 +1,8 @@
 .movieFlex div:nth-child(1) {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-around;  
 }
+
 
 .movieFlex img {
     height: 18rem;

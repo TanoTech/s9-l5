@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Col } from 'react-bootstrap';
-import './MoviesDisplay.css'
+import './MovieSearch.css'
 
 class MovieSearch extends Component {
     constructor(props) {
@@ -60,8 +60,13 @@ class MovieSearch extends Component {
                         <div>
                             <h4 className='text-white'>Results</h4>
                         </div>
-                        <div className='d-flex movieFlex mb-3'>
-                            {searchResults.map((movie, index) => (
+                        <div className='d-flex movieFlexSearch mb-3'>
+                            {searchResults.slice(0, 5).map((movie, index) => (
+                                <img key={index} src={movie.Poster} alt={movie.Title} />
+                            ))}
+                        </div>
+                        <div className='d-flex movieFlexSearch mb-3'>
+                            {searchResults.slice(5, 10).map((movie, index) => (
                                 <img key={index} src={movie.Poster} alt={movie.Title} />
                             ))}
                         </div>

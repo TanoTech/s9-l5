@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React from "react";
 
 class PostComment extends React.Component {
   constructor(props) {
@@ -18,32 +17,48 @@ class PostComment extends React.Component {
     this.setState({ rate: e.target.value });
   }
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (this.state.rate <1 || this.state.rate > 5) {
+      alert('Il rating deve essere un numero tra 1 a 5')
+      return;
+    }
+  
+    console.log("IMDB ID:", this.props.imdbID);  
+  
     const commentData = {
       comment: this.state.comment,
       rate: this.state.rate,
-      elementId: this.props.imdbID,
+      elementId: this.props.imdbId,  
     };
-
+  
+    console.log("Dati del commento da inviare:", commentData); 
+  
     const apiUrl = 'https://striveschool-api.herokuapp.com/api/comments/';
-    const authToken = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTg1OGI0NWI5ODkwODAwMTg0ODg3NDkiLCJpYXQiOjE3MDMyNTA3NTcsImV4cCI6MTcwNDQ2MDM1N30.mjmAWkGSn_s6mRwnEUVxgk95uQYjNGsi3kdhffD0n1g';
-
-    axios.post(apiUrl, commentData, {
-      headers: {
-        'Authorization': authToken,
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => {
-        console.log('Risposta dalla richiesta POST:', response.data);
-        // Aggiungi eventuali azioni aggiuntive dopo l'invio del commento, come l'aggiornamento dell'interfaccia utente.
-      })
-      .catch((error) => {
-        console.error('Errore durante la richiesta POST:', error);
+    const authToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTg1OGI0NWI5ODkwODAwMTg0ODg3NDkiLCJpYXQiOjE3MDMyNTA3NTcsImV4cCI6MTcwNDQ2MDM1N30.mjmAWkGSn_s6mRwnEUVxgk95uQYjNGsi3kdhffD0n1g";  
+  
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Authorization': authToken,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(commentData),
       });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const responseData = await response.json();
+      console.log('Risposta dalla richiesta POST:', responseData);
+    } catch (error) {
+      console.error('Errore durante la richiesta POST:', error);
+    }
   }
+  
 
   render() {
     return (

@@ -4,7 +4,6 @@ import { faThLarge, faTh } from '@fortawesome/free-solid-svg-icons';
 import { Container, Row, Col, Dropdown, DropdownButton } from 'react-bootstrap';
 import SingleMovie from "./SingleMovie";
 import './MoviesDisplay.css'
-import NavbarNet from "./Navbar";
 import MovieSearch from "./MovieSearch";
 
 class MoviesDisplay extends React.Component {

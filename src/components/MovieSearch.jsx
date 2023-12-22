@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import {Row, Col} from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
+import './MoviesDisplay.css'
 
 class MovieSearch extends Component {
     constructor(props) {
@@ -44,26 +45,29 @@ class MovieSearch extends Component {
 
         return (
             <div>
-            <form onSubmit={this.handleSearch}>
-                <input
-                    type="text"
-                    value={movieTitle}
-                    onChange={this.handleInputChange}
-                    placeholder="Search a movie..."
-                />
-                <button type="submit"><FontAwesomeIcon icon={faSearch} className="icons text-white" /></button>
-            </form>
-            {searchResults.length > 0 && (
-                
-                    <Col>
-                    <h4 className='text-white'>Results</h4>
-                        {searchResults.map((movie, index) => (
-                            <img key={index} src={movie.Poster} alt={movie.Title} />
-                        ))}
+                <form onSubmit={this.handleSearch}>
+                    <input
+                        type="text"
+                        value={movieTitle}
+                        onChange={this.handleInputChange}
+                        placeholder="Search a movie..."
+                    />
+                    <button type="submit"><FontAwesomeIcon icon={faSearch} className="icons text-white" /></button>
+                </form>
+                {searchResults.length > 0 && (
+
+                    <Col xs={6} md={4} lg={2}>
+                        <div>
+                            <h4 className='text-white'>Results</h4>
+                        </div>
+                        <div className='d-flex movieFlex mb-3'>
+                            {searchResults.map((movie, index) => (
+                                <img key={index} src={movie.Poster} alt={movie.Title} />
+                            ))}
+                        </div>
                     </Col>
-                
-            )}
-        </div>
+                )}
+            </div>
         );
     }
 }
